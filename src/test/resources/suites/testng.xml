@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Spy webdriver test">
+    <test name="chromedriver" parallel="methods" thread-count="4">
+        <parameter name="browser" value="chrome"/>
+        <packages>
+            <package name="io.github.sudharsan_selvaraj.common.*"/>
+        </packages>
+        <classes>
+            <class name="io.github.sudharsan_selvaraj.selenium.ChromeDriverTest"/>
+        </classes>
+    </test>
+
+    <test name="firefox" parallel="methods" thread-count="4">
+        <parameter name="browser" value="firefox"/>
+        <packages>
+            <package name="io.github.sudharsan_selvaraj.common.*"/>
+        </packages>
+        <classes>
+            <class name="io.github.sudharsan_selvaraj.selenium.FirefoxDriverTest"/>
+        </classes>
+    </test>
+
+        <test name="androiddriver" parallel="methods" thread-count="4">
+            <parameter name="browser" value="android"/>
+            <packages>
+                <package name="io.github.sudharsan_selvaraj.common.*"/>
+            </packages>
+            <classes>
+                <class name="io.github.sudharsan_selvaraj.appium.AndroidDriverTest"></class>
+            </classes>
+        </test>
+<!--        <test name="iosdriver" parallel="methods" thread-count="4">-->
+<!--            <parameter name="browser" value="ios"/>-->
+<!--            <classes>-->
+<!--                <class name="io.github.sudharsan_selvaraj.appium.AndroidDriverTest"></class>-->
+<!--            </classes>-->
+<!--        </test>-->
+</suite>
