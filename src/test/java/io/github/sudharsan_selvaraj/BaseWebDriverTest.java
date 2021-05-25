@@ -5,6 +5,7 @@ import io.appium.java_client.ios.IOSDriver;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.AfterMethod;
@@ -61,7 +62,10 @@ public class BaseWebDriverTest {
     }
 
     protected WebDriver getChromeDriverSpy(SpyDriverListener listener) {
-        return getSpyDriver(new ChromeDriver(), listener);
+        ChromeOptions options = new ChromeOptions();
+        options.setCapability("w3c", true);
+        options.addArguments("--headless");
+        return getSpyDriver(new ChromeDriver(options), listener);
     }
 
     protected WebDriver getFirefoxDriverSpy(SpyDriverListener listener) {
@@ -83,8 +87,7 @@ public class BaseWebDriverTest {
     }
 
     protected WebDriver getSpyDriver(WebDriver driver, SpyDriverListener listener) {
-        SpyDriver spyDriver = new SpyDriver(SpryDriverOptions.builder().listener(listener).build());
-        return spyDriver.spyOn(driver);
+        return SpyDriver.spyOn(driver, listener);
     }
 
     protected void sleep(int millisec) {

@@ -24,7 +24,7 @@ public class DriverInterceptor extends BaseInterceptor implements Answer {
                 "RemoteNavigation",
                 "RemoteInputMethodManager",
                 "RemoteAlert",
-                Logs.class.getSimpleName()
+                "RemoteLogs"
         );
     }
 

@@ -11,29 +11,29 @@
         </classes>
     </test>
 
-    <test name="firefox" parallel="methods" thread-count="4">
-        <parameter name="browser" value="firefox"/>
-        <packages>
-            <package name="io.github.sudharsan_selvaraj.common.*"/>
-        </packages>
-        <classes>
-            <class name="io.github.sudharsan_selvaraj.selenium.FirefoxDriverTest"/>
-        </classes>
-    </test>
+<!--    <test name="firefox" parallel="methods" thread-count="4">-->
+<!--        <parameter name="browser" value="firefox"/>-->
+<!--        <packages>-->
+<!--            <package name="io.github.sudharsan_selvaraj.common.*"/>-->
+<!--        </packages>-->
+<!--        <classes>-->
+<!--            <class name="io.github.sudharsan_selvaraj.selenium.FirefoxDriverTest"/>-->
+<!--        </classes>-->
+<!--    </test>-->
 
-        <test name="androiddriver" parallel="methods" thread-count="4">
-            <parameter name="browser" value="android"/>
-            <packages>
-                <package name="io.github.sudharsan_selvaraj.common.*"/>
-            </packages>
-            <classes>
-                <class name="io.github.sudharsan_selvaraj.appium.AndroidDriverTest"></class>
-            </classes>
-        </test>
-<!--        <test name="iosdriver" parallel="methods" thread-count="4">-->
-<!--            <parameter name="browser" value="ios"/>-->
-<!--            <classes>-->
-<!--                <class name="io.github.sudharsan_selvaraj.appium.AndroidDriverTest"></class>-->
-<!--            </classes>-->
-<!--        </test>-->
+<!--    <test name="androiddriver" parallel="methods" thread-count="4">-->
+<!--        <parameter name="browser" value="android"/>-->
+<!--        <packages>-->
+<!--            <package name="io.github.sudharsan_selvaraj.common.*"/>-->
+<!--        </packages>-->
+<!--        <classes>-->
+<!--            <class name="io.github.sudharsan_selvaraj.appium.AndroidDriverTest"></class>-->
+<!--        </classes>-->
+<!--    </test>-->
+    <!--        <test name="iosdriver" parallel="methods" thread-count="4">-->
+    <!--            <parameter name="browser" value="ios"/>-->
+    <!--            <classes>-->
+    <!--                <class name="io.github.sudharsan_selvaraj.appium.AndroidDriverTest"></class>-->
+    <!--            </classes>-->
+    <!--        </test>-->
 </suite>

@@ -20,7 +20,7 @@ public class TimeoutsTest extends BaseWebDriverTest {
         driver.get("https://www.google.com");
         WebDriver.Timeouts timeouts = driver.manage().timeouts();
 
-        assertEquals(mockListener.getLastInvocation().getMethod().getName(), "timeouts");
+        assertEquals(mockListener.getLastInvocation(mockListener.driverCommandStack).getMethod().getName(), "timeouts");
         assertTrue(timeouts.getClass().getSimpleName().contains("RemoteTimeouts$MockitoMock"),
                 "Actual Class Name:" + timeouts.getClass().getSimpleName());
     }
@@ -38,9 +38,9 @@ public class TimeoutsTest extends BaseWebDriverTest {
         assertTrue(timeouts.getClass().getSimpleName().contains("RemoteTimeouts$MockitoMock"),
                 "Actual Class Name:" + timeouts.getClass().getSimpleName());
 
-        assertEquals(mockListener.getLastInvocation().getMethod().getName(), "implicitlyWait");
-        assertEquals((Long) mockListener.getLastInvocation().getArguments()[0], Long.valueOf(1000));
-        assertEquals(mockListener.getLastInvocation().getArguments()[1], TimeUnit.MILLISECONDS);
+        assertEquals(mockListener.getLastInvocation(mockListener.driverCommandStack).getMethod().getName(), "implicitlyWait");
+        assertEquals((Long) mockListener.getLastInvocation(mockListener.driverCommandStack).getArguments()[0], Long.valueOf(1000));
+        assertEquals(mockListener.getLastInvocation(mockListener.driverCommandStack).getArguments()[1], TimeUnit.MILLISECONDS);
     }
 
     @Test(description = "Test setScriptTimeout method")
@@ -56,9 +56,9 @@ public class TimeoutsTest extends BaseWebDriverTest {
         assertTrue(timeouts.getClass().getSimpleName().contains("RemoteTimeouts$MockitoMock"),
                 "Actual Class Name:" + timeouts.getClass().getSimpleName());
 
-        assertEquals(mockListener.getLastInvocation().getMethod().getName(), "setScriptTimeout");
-        assertEquals((Long) mockListener.getLastInvocation().getArguments()[0], Long.valueOf(1000));
-        assertEquals(mockListener.getLastInvocation().getArguments()[1], TimeUnit.MILLISECONDS);
+        assertEquals(mockListener.getLastInvocation(mockListener.driverCommandStack).getMethod().getName(), "setScriptTimeout");
+        assertEquals((Long) mockListener.getLastInvocation(mockListener.driverCommandStack).getArguments()[0], Long.valueOf(1000));
+        assertEquals(mockListener.getLastInvocation(mockListener.driverCommandStack).getArguments()[1], TimeUnit.MILLISECONDS);
     }
 
     @Test(description = "Test pageLoadTimeout method")
@@ -74,9 +74,8 @@ public class TimeoutsTest extends BaseWebDriverTest {
         assertTrue(timeouts.getClass().getSimpleName().contains("RemoteTimeouts$MockitoMock"),
                 "Actual Class Name:" + timeouts.getClass().getSimpleName());
 
-        assertEquals(mockListener.getLastInvocation().getMethod().getName(), "pageLoadTimeout");
-        assertEquals((Long) mockListener.getLastInvocation().getArguments()[0], Long.valueOf(1000));
-        assertEquals(mockListener.getLastInvocation().getArguments()[1], TimeUnit.MILLISECONDS);
+        assertEquals((Long) mockListener.getLastInvocation(mockListener.driverCommandStack).getArguments()[0], Long.valueOf(1000));
+        assertEquals(mockListener.getLastInvocation(mockListener.driverCommandStack).getArguments()[1], TimeUnit.MILLISECONDS);
     }
 
 }

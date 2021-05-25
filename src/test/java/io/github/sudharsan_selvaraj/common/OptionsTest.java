@@ -17,7 +17,7 @@ public class OptionsTest extends BaseWebDriverTest {
         driver.get("https://www.google.com");
         WebDriver.Options options = driver.manage();
 
-        assertEquals(mockListener.getLastInvocation().getMethod().getName(), "manage");
+        assertEquals(mockListener.getLastInvocation(mockListener.driverCommandStack).getMethod().getName(), "manage");
         assertTrue(options.getClass().getSimpleName().contains("RemoteWebDriverOptions$MockitoMock"));
     }
 }

@@ -1,14 +1,15 @@
 package io.github.sudharsan_selvaraj.listener;
 
+import io.github.sudharsan_selvaraj.types.driver.DriverCommand;
+import io.github.sudharsan_selvaraj.types.driver.DriverCommandException;
+import io.github.sudharsan_selvaraj.types.driver.DriverCommandResult;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
-import java.lang.reflect.Method;
 
 public interface DriverCommandListener<T extends WebDriver> {
-    void beforeDriverCommandExecuted(T driver, Object target, Method method, Object[] args);
+    void beforeDriverCommandExecuted(DriverCommand<T> command);
 
-    void afterDriverCommandExecuted(T driver, Object target, Method method, Object[] args, Object result);
+    void afterDriverCommandExecuted(DriverCommandResult<T> command);
 
-    void onException(T driver, Object target, Method method, Object[] args, Throwable exception);
+    void onException(DriverCommandException<T> command);
 }

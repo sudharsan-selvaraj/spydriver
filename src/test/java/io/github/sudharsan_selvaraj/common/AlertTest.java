@@ -13,7 +13,7 @@ import static org.testng.Assert.assertTrue;
 public class AlertTest extends BaseWebDriverTest {
 
 
-    private void openAlter(WebDriver driver) {
+    private void openAlert(WebDriver driver) {
         /* Test Get Method */
         driver.get("https://the-internet.herokuapp.com/javascript_alerts");
         sleep(2000);
@@ -24,10 +24,10 @@ public class AlertTest extends BaseWebDriverTest {
     @Test(description = "Test driver.switchTo().alert() returns mocked alert object")
     public void testAlertObjectMocked() {
         WebDriver driver = localDriver.get();
-        openAlter(driver);
+        openAlert(driver);
         MockDriverListener mockListener = (MockDriverListener) listener.get();
         Alert alert = driver.switchTo().alert();
-        assertEquals(mockListener.getLastInvocation().getMethod().getName(), "alert");
+        assertEquals(mockListener.getLastInvocation(mockListener.driverCommandStack).getMethod().getName(), "alert");
         assertTrue(alert.getClass().getSimpleName().contains("RemoteAlert$MockitoMock"));
     }
 
@@ -36,16 +36,16 @@ public class AlertTest extends BaseWebDriverTest {
         WebDriver driver = localDriver.get();
         MockDriverListener mockListener = (MockDriverListener) listener.get();
 
-        openAlter(driver);
+        openAlert(driver);
         Alert alert = driver.switchTo().alert();
 
         assertEquals(alert.getText(), "I am a JS Alert");
-        assertEquals(mockListener.getLastInvocation().getMethod().getName(), "getText");
+        assertEquals(mockListener.getLastInvocation(mockListener.driverCommandStack).getMethod().getName(), "getText");
 
         alert.accept();
-        assertEquals(mockListener.getLastInvocation().getMethod().getName(), "accept");
+        assertEquals(mockListener.getLastInvocation(mockListener.driverCommandStack).getMethod().getName(), "accept");
 
-        assertEquals(driver.getWindowHandle(), mockListener.getLastInvocation().getDriver().getWindowHandle());
+        assertEquals(driver.getWindowHandle(), mockListener.getLastInvocation(mockListener.driverCommandStack).getDriver().getWindowHandle());
     }
 
     @Test(description = "Test alert dismiss methods")
@@ -53,16 +53,16 @@ public class AlertTest extends BaseWebDriverTest {
         WebDriver driver = localDriver.get();
         MockDriverListener mockListener = (MockDriverListener) listener.get();
 
-        openAlter(driver);
+        openAlert(driver);
         Alert alert = driver.switchTo().alert();
 
         assertEquals(alert.getText(), "I am a JS Alert");
-        assertEquals(mockListener.getLastInvocation().getMethod().getName(), "getText");
+        assertEquals(mockListener.getLastInvocation(mockListener.driverCommandStack).getMethod().getName(), "getText");
 
         alert.dismiss();
-        assertEquals(mockListener.getLastInvocation().getMethod().getName(), "dismiss");
+        assertEquals(mockListener.getLastInvocation(mockListener.driverCommandStack).getMethod().getName(), "dismiss");
 
-        assertEquals(driver.getWindowHandle(), mockListener.getLastInvocation().getDriver().getWindowHandle());
+        assertEquals(driver.getWindowHandle(), mockListener.getLastInvocation(mockListener.driverCommandStack).getDriver().getWindowHandle());
     }
 
 }

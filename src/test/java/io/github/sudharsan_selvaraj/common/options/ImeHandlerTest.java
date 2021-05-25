@@ -10,7 +10,7 @@ import static org.testng.Assert.assertTrue;
 
 public class ImeHandlerTest extends BaseWebDriverTest {
 
-    @Test(description = "driver.manage().ime() should return proxied RemoteInputMethodManager object")
+    @Test(description = "driver.manage().ime() should return proxied Logs object")
     public void imeTypeCastingTest() {
         WebDriver driver = localDriver.get();
         MockDriverListener mockListener = (MockDriverListener) listener.get();
@@ -18,7 +18,7 @@ public class ImeHandlerTest extends BaseWebDriverTest {
         driver.get("https://www.google.com");
         WebDriver.ImeHandler imeHandler = driver.manage().ime();
 
-        assertEquals(mockListener.getLastInvocation().getMethod().getName(), "ime");
+        assertEquals(mockListener.getLastInvocation(mockListener.driverCommandStack).getMethod().getName(), "ime");
         assertTrue(imeHandler.getClass().getSimpleName().contains("RemoteInputMethodManager$MockitoMock"),
                 "Actual Class Name:" + imeHandler.getClass().getSimpleName());
     }
