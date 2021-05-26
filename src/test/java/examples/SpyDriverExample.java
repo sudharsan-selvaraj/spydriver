@@ -35,7 +35,7 @@ public class SpyDriverExample implements SpyDriverListener {
     }
 
     public void runTest(WebDriver driver) {
-        driver.get("sdfdsfds");
+        driver.get("https://the-internet.herokuapp.com/");
         driver.manage().window().setSize(new Dimension(1000, 400));
         driver.findElement(By.partialLinkText("Inputs")).click();
         driver.findElement(By.cssSelector("[type=\"number\"]")).sendKeys("1222");
@@ -56,6 +56,7 @@ public class SpyDriverExample implements SpyDriverListener {
     @Override
     public void beforeDriverCommandExecuted(DriverCommand command) {
         try {
+            System.out.println("[WebDriver-before]" + command.getId());
             Thread.sleep(500);
         } catch (Exception e) {
 
@@ -64,6 +65,7 @@ public class SpyDriverExample implements SpyDriverListener {
 
     @Override
     public void afterDriverCommandExecuted(DriverCommandResult command) {
+        System.out.println("[WebDriver-After]" + command.getId());
         if (command.getMethod().getName().startsWith("findElement")) {
             printFindElementCommand(command.getMethod(), command.getArguments());
             return;
@@ -94,10 +96,12 @@ public class SpyDriverExample implements SpyDriverListener {
 
     @Override
     public void beforeElementCommandExecuted(ElementCommand command) {
+        System.out.println("[WebElement-Before]" + command.getId());
     }
 
     @Override
     public void afterElementCommandExecuted(ElementCommandResult command) {
+        System.out.println("[WebElement-After]" + command.getId());
         switch (command.getMethod().getName()) {
             case "click" :
                 log("Clicked on element " + command.getLocator());
