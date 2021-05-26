@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 
 public class SpyDriver {
 
-    public static <T extends WebDriver> T spyOn(T driver, SpryDriverOptions options) {
+    public static <T extends WebDriver> T spyOn(T driver, SpyDriverOptions options) {
         return (T) Mockito.mock(getSpyInstanceClass(driver), new DriverInterceptor(driver, options.getListener()));
     }
 

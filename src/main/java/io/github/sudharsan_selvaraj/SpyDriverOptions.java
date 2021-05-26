@@ -6,6 +6,6 @@ import lombok.Getter;
 @Builder
 @Getter
 @AllArgsConstructor
-public class SpryDriverOptions {
+public class SpyDriverOptions {
     private SpyDriverListener listener;
 }

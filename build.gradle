@@ -1,12 +1,74 @@
 plugins {
-    id 'java'
+    id 'java-library'
+    id 'maven-publish'
+    id 'signing'
 }
 
-group 'org.example'
-version '1.0-SNAPSHOT'
+group 'io.github.sudharsan-selvaraj'
+version '1.0.0'
 
 repositories {
     mavenCentral()
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+
+signing {
+    sign publishing.publications
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = "io.github.sudharsan-selvaraj"
+            artifactId = "spydriver"
+            version = "1.0"
+
+            from components.java
+            pom {
+                name = 'spydriver'
+                description = 'Lightweight utility to intercept before and after webdriver methods are invoked'
+                url = 'https://github.com/sudharsan-selvaraj/spydriver'
+
+                developers {
+                    developer {
+                        name = 'Sudharsan Selvaraj'
+                        email = 'sudharsanselvaraj.c@gmail.com'
+                        url = 'https://github.com/sudharsan-selvaraj'
+                        id = 'sudharsan-selvaraj'
+                    }
+                }
+                licenses {
+                    license {
+                        name = 'Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        distribution = 'repo'
+                    }
+                }
+                scm {
+                    url = 'https://github.com/sudharsan-selvaraj/spydriver'
+                    connection = 'scm:git:ssh://git@github.com:sudharsan-selvaraj/spydriver.git'
+                    developerConnection = 'scm:git:ssh://git@github.com:sudharsan-selvaraj/spydriver.git'
+                    tag = 'HEAD'
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            credentials {
+                username project.findProperty("sonatypeUser")?.toString() ?: System.getenv("SONATYPE_USER")
+                password project.findProperty("sonatypePassword")?.toString() ?: System.getenv("SONATYPE_PASSWORD")
+            }
+            def releasesRepoUrl = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+            def snapshotsRepoUrl = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+        }
+    }
 }
 
 dependencies {
@@ -16,7 +78,7 @@ dependencies {
     implementation("com.google.guava:guava:30.1.1-jre")
 
     testImplementation group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '4.4.3'
-    testImplementation group: 'org.testng',  name: 'testng', version: '7.4.0'
+    testImplementation group: 'org.testng', name: 'testng', version: '7.4.0'
 
     compileOnly 'org.projectlombok:lombok:1.18.8'
     testCompile 'org.projectlombok:lombok:1.18.8'

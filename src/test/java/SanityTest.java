@@ -1,6 +1,6 @@
 import io.appium.java_client.android.AndroidDriver;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import io.github.sudharsan_selvaraj.SpryDriverOptions;
+import io.github.sudharsan_selvaraj.SpyDriverOptions;
 import io.github.sudharsan_selvaraj.SpyDriver;
 import io.github.sudharsan_selvaraj.SpyDriverListener;
 import io.github.sudharsan_selvaraj.types.driver.DriverCommand;
@@ -36,7 +36,7 @@ public class SanityTest implements SpyDriverListener {
         capabilities.setCapability("device", "Samsung Galaxy S10e");
         //WebDriver driver = spyDriver.spyOn(new AndroidDriver(new URL(url), capabilities));
         //WebDriver driver = spyDriver.spyOn(new AndroidDriver(new URL(url), capabilities));
-        WebDriver driver = SpyDriver.spyOn(new ChromeDriver(), SpryDriverOptions.builder().listener(test).build());
+        WebDriver driver = SpyDriver.spyOn(new ChromeDriver(), SpyDriverOptions.builder().listener(test).build());
 
         //test.waitTest(driver);
         //spyDriver.addListener(test);
