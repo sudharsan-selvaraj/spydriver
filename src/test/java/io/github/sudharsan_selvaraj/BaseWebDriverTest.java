@@ -87,7 +87,7 @@ public class BaseWebDriverTest {
     }
 
     protected WebDriver getSpyDriver(WebDriver driver, SpyDriverListener listener) {
-        return SpyDriver.spyOn(driver, listener);
+        return SpyDriver.spyOn(driver, SpryDriverOptions.builder().listener(listener).build());
     }
 
     protected void sleep(int millisec) {

@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import io.github.sudharsan_selvaraj.SpyDriverListener;
 import org.mockito.stubbing.Answer;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.logging.Logs;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
