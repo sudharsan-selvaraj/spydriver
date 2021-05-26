@@ -11,8 +11,8 @@ import java.lang.reflect.Method;
 public class ElementCommandException<T extends WebDriver, U extends WebElement> extends ElementCommand<T, U> {
     private Throwable exception;
 
-    public ElementCommandException(T driver, U element, By locator, Method method, Object[] arguments, Throwable exception) {
-        super(driver, element, locator, method, arguments);
+    public ElementCommandException(String id,T driver, U element, By locator, Method method, Object[] arguments, Throwable exception) {
+        super(id, driver, element, locator, method, arguments);
         this.exception = exception;
     }
 }

@@ -9,8 +9,8 @@ import java.lang.reflect.Method;
 public class DriverCommandResult<T extends WebDriver> extends DriverCommand<T> {
     private Object result;
 
-    public DriverCommandResult(T driver, Object target, Method method, Object[] arguments, Object result) {
-        super(driver, target, method, arguments);
+    public DriverCommandResult(String id,T driver, Object target, Method method, Object[] arguments, Object result) {
+        super(id, driver, target, method, arguments);
         this.result = result;
     }
 }

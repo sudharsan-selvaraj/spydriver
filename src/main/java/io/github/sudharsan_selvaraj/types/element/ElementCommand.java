@@ -15,8 +15,8 @@ public class ElementCommand<T extends WebDriver, U extends WebElement> extends B
     private U element;
     private By locator;
 
-    public ElementCommand(T driver, U element, By locator, Method method, Object[] arguments) {
-        super(method, arguments);
+    public ElementCommand(String id, T driver, U element, By locator, Method method, Object[] arguments) {
+        super(id, method, arguments);
         this.driver = driver;
         this.element = element;
         this.locator = locator;

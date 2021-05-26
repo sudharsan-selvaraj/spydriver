@@ -22,6 +22,7 @@ import java.lang.reflect.Method;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 public abstract class BaseInterceptor implements Answer {
 
@@ -79,31 +80,32 @@ public abstract class BaseInterceptor implements Answer {
     abstract protected Boolean skipListenerNotification(Method method, Object[] args);
 
 
-    public void notifyBefore(Object target, Method method, Object[] args) {
+    public void notifyBefore(String commandId, Object target, Method method, Object[] args) {
         if (isWebdriverInstance(target)) {
-            listener.beforeDriverCommandExecuted(constructDriverCommand(method, args));
+            listener.beforeDriverCommandExecuted(constructDriverCommand(commandId, method, args));
         } else {
-            listener.beforeElementCommandExecuted(constructElementCommand(method, args));
+            listener.beforeElementCommandExecuted(constructElementCommand(commandId, method, args));
         }
     }
 
-    public void notifyAfter(Object target, Method method, Object[] args, Object result) {
+    public void notifyAfter(String commandId, Object target, Method method, Object[] args, Object result) {
         if (isWebdriverInstance(target)) {
-            listener.afterDriverCommandExecuted(constructDriverCommandResult(method, args, result));
+            listener.afterDriverCommandExecuted(constructDriverCommandResult(commandId, method, args, result));
         } else {
-            listener.afterElementCommandExecuted(constructElementCommandResult(method, args, result));
+            listener.afterElementCommandExecuted(constructElementCommandResult(commandId, method, args, result));
         }
     }
 
-    public void notifyException(Object target, Method method, Object[] args, Throwable exception) {
+    public void notifyException(String commandId, Object target, Method method, Object[] args, Throwable exception) {
         if (isWebdriverInstance(target)) {
-            listener.onException(constructDriverCommandException(method, args, exception));
+            listener.onException(constructDriverCommandException(commandId, method, args, exception));
         } else {
-            listener.onException(constructElementCommandException(method, args, exception));
+            listener.onException(constructElementCommandException(commandId, method, args, exception));
         }
     }
 
     public Object invoke(Object target, Method method, Object[] rawArgs) throws Throwable {
+        String commandId = UUID.randomUUID().toString();
         method.setAccessible(true);
         Object[] parsedArgs = processArgs(method, rawArgs);
         Boolean skipNotification = skipListenerNotification(method, parsedArgs);
@@ -113,7 +115,7 @@ public abstract class BaseInterceptor implements Answer {
             }
 
             if (!skipNotification) {
-                notifyBefore(target, method, parsedArgs);
+                notifyBefore(commandId, target, method, parsedArgs);
             }
             Object result = method.invoke(target, parsedArgs);
             if (result != null) {
@@ -124,12 +126,12 @@ public abstract class BaseInterceptor implements Answer {
                 }
             }
             if (!skipNotification) {
-                notifyAfter(target, method, parsedArgs, result);
+                notifyAfter(commandId, target, method, parsedArgs, result);
             }
             return result;
         } catch (Throwable e) {
             if (!skipNotification) {
-                notifyException(target, method, parsedArgs, e.getCause());
+                notifyException(commandId, target, method, parsedArgs, e.getCause());
             }
             if (e.getCause() != null) {
                 throw e.getCause();
@@ -158,27 +160,27 @@ public abstract class BaseInterceptor implements Answer {
         return new Object[]{castedArray};
     }
 
-    private DriverCommand constructDriverCommand(Method method, Object[] args) {
-        return new DriverCommand(driver, target, method, args);
+    private DriverCommand constructDriverCommand(String commandId, Method method, Object[] args) {
+        return new DriverCommand(commandId, driver, target, method, args);
     }
 
-    private ElementCommand constructElementCommand(Method method, Object[] args) {
-        return new ElementCommand(driver, (WebElement) target, locator, method, args);
+    private ElementCommand constructElementCommand(String commandId, Method method, Object[] args) {
+        return new ElementCommand(commandId, driver, (WebElement) target, locator, method, args);
     }
 
-    private DriverCommandResult constructDriverCommandResult(Method method, Object[] args, Object result) {
-        return new DriverCommandResult(driver, target, method, args, result);
+    private DriverCommandResult constructDriverCommandResult(String commandId, Method method, Object[] args, Object result) {
+        return new DriverCommandResult(commandId, driver, target, method, args, result);
     }
 
-    private ElementCommandResult constructElementCommandResult(Method method, Object[] args, Object result) {
-        return new ElementCommandResult(driver, (WebElement) target, locator, method, args, result);
+    private ElementCommandResult constructElementCommandResult(String commandId, Method method, Object[] args, Object result) {
+        return new ElementCommandResult(commandId, driver, (WebElement) target, locator, method, args, result);
     }
 
-    private DriverCommandException constructDriverCommandException(Method method, Object[] args, Throwable exception) {
-        return new DriverCommandException(driver, target, method, args, exception);
+    private DriverCommandException constructDriverCommandException(String commandId, Method method, Object[] args, Throwable exception) {
+        return new DriverCommandException(commandId, driver, target, method, args, exception);
     }
 
-    private ElementCommandException constructElementCommandException(Method method, Object[] args, Throwable exception) {
-        return new ElementCommandException(driver, (WebElement) target, locator, method, args, exception);
+    private ElementCommandException constructElementCommandException(String commandId, Method method, Object[] args, Throwable exception) {
+        return new ElementCommandException(commandId, driver, (WebElement) target, locator, method, args, exception);
     }
 }

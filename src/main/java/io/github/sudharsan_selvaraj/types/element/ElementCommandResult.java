@@ -11,8 +11,8 @@ import java.lang.reflect.Method;
 public class ElementCommandResult<T extends WebDriver, U extends WebElement> extends ElementCommand<T, U> {
     private Object result;
 
-    public ElementCommandResult(T driver, U element, By locator, Method method, Object[] arguments, Object result) {
-        super(driver, element, locator, method, arguments);
+    public ElementCommandResult(String id, T driver, U element, By locator, Method method, Object[] arguments, Object result) {
+        super(id, driver, element, locator, method, arguments);
         this.result = result;
     }
 }

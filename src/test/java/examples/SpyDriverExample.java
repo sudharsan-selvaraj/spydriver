@@ -35,7 +35,7 @@ public class SpyDriverExample implements SpyDriverListener {
     }
 
     public void runTest(WebDriver driver) {
-        driver.get("https://the-internet.herokuapp.com/");
+        driver.get("sdfdsfds");
         driver.manage().window().setSize(new Dimension(1000, 400));
         driver.findElement(By.partialLinkText("Inputs")).click();
         driver.findElement(By.cssSelector("[type=\"number\"]")).sendKeys("1222");
@@ -56,7 +56,7 @@ public class SpyDriverExample implements SpyDriverListener {
     @Override
     public void beforeDriverCommandExecuted(DriverCommand command) {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(500);
         } catch (Exception e) {
 
         }
@@ -90,12 +90,10 @@ public class SpyDriverExample implements SpyDriverListener {
 
     @Override
     public void onException(DriverCommandException command) {
-
     }
 
     @Override
     public void beforeElementCommandExecuted(ElementCommand command) {
-
     }
 
     @Override

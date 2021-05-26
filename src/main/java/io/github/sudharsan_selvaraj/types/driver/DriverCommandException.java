@@ -9,8 +9,8 @@ import java.lang.reflect.Method;
 public class DriverCommandException<T extends WebDriver> extends DriverCommand<T> {
     private Throwable exception;
 
-    public DriverCommandException(T driver, Object target, Method method, Object[] arguments, Throwable exception) {
-        super(driver, target, method, arguments);
+    public DriverCommandException(String id,T driver, Object target, Method method, Object[] arguments, Throwable exception) {
+        super(id, driver, target, method, arguments);
         this.exception = exception;
     }
 
