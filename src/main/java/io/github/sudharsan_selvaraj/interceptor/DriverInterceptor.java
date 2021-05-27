@@ -35,12 +35,8 @@ public class DriverInterceptor extends BaseInterceptor implements Answer {
         super(driver, target, listener, classesToBeProxied);
     }
 
+    @Override
     protected Boolean skipListenerNotification(Method method, Object[] args) {
-        Throwable t = new Throwable();
-        return Arrays.stream(t.getStackTrace())
-                .filter(stackTraceElement -> {
-                    return stackTraceElement.getClassName().contains("FluentWait");
-                }).collect(Collectors.toList())
-                .size() > 0;
+        return super.skipListenerNotification(method, args);
     }
 }

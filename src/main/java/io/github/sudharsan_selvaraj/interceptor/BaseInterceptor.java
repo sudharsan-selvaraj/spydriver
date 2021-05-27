@@ -23,8 +23,9 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
-public abstract class BaseInterceptor implements Answer {
+public class BaseInterceptor implements Answer {
 
     protected SpyDriverListener listener;
     protected Object target;
@@ -77,7 +78,14 @@ public abstract class BaseInterceptor implements Answer {
         return args;
     }
 
-    abstract protected Boolean skipListenerNotification(Method method, Object[] args);
+    protected Boolean skipListenerNotification(Method method, Object[] args) {
+        Throwable t = new Throwable();
+        return Arrays.stream(t.getStackTrace())
+                .filter(stackTraceElement -> {
+                    return stackTraceElement.getClassName().contains("FluentWait");
+                }).collect(Collectors.toList())
+                .size() > 0;
+    }
 
 
     public void notifyBefore(String commandId, Object target, Method method, Object[] args) {

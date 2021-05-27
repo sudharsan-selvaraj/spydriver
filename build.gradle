@@ -5,7 +5,7 @@ plugins {
 }
 
 group 'io.github.sudharsan-selvaraj'
-version '1.0.0'
+version '1.0.1'
 
 repositories {
     mavenCentral()
@@ -26,12 +26,12 @@ publishing {
         mavenJava(MavenPublication) {
             groupId = "io.github.sudharsan-selvaraj"
             artifactId = "spydriver"
-            version = "1.0.0"
+            version = "1.0.1"
 
             from components.java
             pom {
                 name = 'spydriver'
-                description = 'Lightweight utility to intercept before and after webdriver methods are invoked'
+                description = 'Lightweight utility to intercept webdriver and webelement methods calls'
                 url = 'https://github.com/sudharsan-selvaraj/spydriver'
 
                 developers {

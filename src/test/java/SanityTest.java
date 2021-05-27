@@ -38,10 +38,10 @@ public class SanityTest implements SpyDriverListener {
         //WebDriver driver = spyDriver.spyOn(new AndroidDriver(new URL(url), capabilities));
         WebDriver driver = SpyDriver.spyOn(new ChromeDriver(), SpyDriverOptions.builder().listener(test).build());
 
-        //test.waitTest(driver);
+        test.waitTest(driver);
         //spyDriver.addListener(test);
-        test.driverTest(driver);
-        test.elementTest(driver);
+        //test.driverTest(driver);
+        //test.elementTest(driver);
         driver.quit();
     }
 
@@ -70,7 +70,9 @@ public class SanityTest implements SpyDriverListener {
 
     public void waitTest(WebDriver driver) {
         driver.get("http://www.google.com");
-        new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("#myname")));
+        WebElement body = driver.findElement(By.cssSelector("body"));
+        //new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("#myname")));
+        new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOf(body));
     }
 
     @Override

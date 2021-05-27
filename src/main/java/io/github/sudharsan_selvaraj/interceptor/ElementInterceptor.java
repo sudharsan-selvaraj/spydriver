@@ -15,6 +15,6 @@ public class ElementInterceptor extends BaseInterceptor {
 
     @Override
     protected Boolean skipListenerNotification(Method method, Object[] args) {
-        return false;
+       return super.skipListenerNotification(method, args);
     }
 }
