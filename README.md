@@ -5,7 +5,8 @@
 <p align="center">
    <i><strong>Lightweight utility to intercept webdriver and webelement method calls. Supports both Selenium and Appium drivers </strong></i>
 <p>
-
+ 
+<p align="center"> [About](#about) **|** [To Get Started](#how) **|** [Installation](#installation) </p>
 ---
 
 ## About
@@ -118,7 +119,8 @@ public void beforeDriverCommandExecuted(DriverCommand command) {
 
 ### afterDriverCommandExecuted:
 Invoked after the webdriver method is called. It also holds the return value from the original method call.
-Parameter: `DriverCommand`
+
+Parameter: `DriverCommandResult`
 ```java
 //sample driver method
 driver.getTitle();
@@ -157,6 +159,8 @@ public void afterDriverCommandExecuted(DriverCommandResult command) {
 
 ### onException:
 Invoked if any exception is thrown while calling the webdriver method.
+
+Parameter: `DriverCommandException`
 ```java
 //sample driver method
 driver.get("some-invalid-url");
@@ -171,6 +175,8 @@ public void onException(DriverCommandException command) {
 
 ### beforeElementCommandExecuted:
 Invoked before any method is called in WebElement object.
+
+Parameter: `ElementCommand`
 
 ```java
 //sample driver method
@@ -203,6 +209,7 @@ public void beforeElementCommandExecuted(ElementCommand command) {
 ### afterElementCommandExecuted:
 Invoked after any method is called in WebElement object.
 
+Parameter: `ElementCommandResult`
 ```java
 //sample driver method
 WebElement element = driver.findElement(By.cssSelector(".username"));
@@ -220,12 +227,14 @@ public void afterElementCommandExecuted(ElementCommandResult command) {
 
 ### onException:
 Invoked if any exception is thrown while calling the webelement method.
+
+Parameter: `ElementCommandException`
 ```java
 //sample driver method
 WebElement element = driver.findElement(By.cssSelector(".hidden"));
 element.click();
 
-public void onException(ElementCommandResult command) {
+public void onException(ElementCommandException command) {
     System.out.println(command.getMethod().getName()); // prints "click"
     System.out.println(command.getException().getMessage()); // prints "element not visile"
     Webdriver originalDriver = command.getDriver(); // return the original driver object that is being spied.
@@ -235,4 +244,19 @@ public void onException(ElementCommandResult command) {
 ```
 
 ## Installation:
-``` Will be updated Soon ```
+
+### Maven:
+
+``` 
+<dependency>
+  <groupId>io.github.sudharsan-selvaraj</groupId>
+  <artifactId>spydriver</artifactId>
+  <version>1.0.1</version>
+</dependency> 
+```
+
+### Gradle:
+
+``` 
+implementation group: 'io.github.sudharsan-selvaraj', name: 'spydriver', version: '1.0.1'
+```
