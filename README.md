@@ -6,7 +6,8 @@
    <i><strong>Lightweight utility to intercept webdriver and webelement method calls. Supports both Selenium and Appium drivers </strong></i>
 <p>
  
-<p align="center"> [About](#about) **|** [To Get Started](#how) **|** [Installation](#installation) </p>
+### <p align="center"> [About](#about) **|** [To Get Started](#how) **|** [Installation](#installation) </p>
+
 ---
 
 ## About
