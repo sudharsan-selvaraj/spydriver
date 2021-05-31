@@ -36,7 +36,8 @@ public class SanityTest implements SpyDriverListener {
         capabilities.setCapability("device", "Samsung Galaxy S10e");
         //WebDriver driver = spyDriver.spyOn(new AndroidDriver(new URL(url), capabilities));
         //WebDriver driver = spyDriver.spyOn(new AndroidDriver(new URL(url), capabilities));
-        WebDriver driver = SpyDriver.spyOn(new ChromeDriver(), SpyDriverOptions.builder().listener(test).build());
+        SpyDriver spyDriver = new SpyDriver(new ChromeDriver(), SpyDriverOptions.builder().listener(test).build());
+        WebDriver driver = spyDriver.getSpyDriver();
 
         test.waitTest(driver);
         //spyDriver.addListener(test);

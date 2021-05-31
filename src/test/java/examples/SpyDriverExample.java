@@ -30,7 +30,8 @@ public class SpyDriverExample implements SpyDriverListener {
         System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE, "/dev/null");
         java.util.logging.Logger.getLogger("org.openqa.selenium").setLevel(Level.OFF);
 
-        WebDriver driver = SpyDriver.spyOn(new FirefoxDriver(), SpyDriverOptions.builder().listener(example).build());
+        SpyDriver spyDriver = new SpyDriver(new FirefoxDriver(), SpyDriverOptions.builder().listener(example).build());
+        WebDriver driver = spyDriver.getSpyDriver();
         example.runTest(driver);
     }
 

@@ -64,9 +64,16 @@ perform any operation before and after the method is executed.
 ### Creating the spy driver object:
 
 ```java
-WebDriver driver = SpyDriver.spyOn(new FirefoxDriver(), //Any webdriver object(supports both Selenium and Appium)
-                                 SpyDriverOptions.builder().listener(listener).build()); // Listener that we have created above
+SpyDriver spyDriver = new SpyDriver(new FirefoxDriver(), //Any webdriver object(supports both Selenium and Appium)
+        SpyDriverOptions.builder().listener(listener).build());// Listener that we have created above
+WebDriver driver = spyDriver.getSpyDriver();
+//now the driver object can be used in the test to get the events via listeners
 ```
+It's also possible to add any number of listeners later using
+```java
+spyDriver.addListener(listener);
+```
+
 
 That's it. Now you can use the driver object in your test and it will log each and every method name that is invoked in the driver object. 
 
@@ -248,16 +255,16 @@ public void onException(ElementCommandException command) {
 
 ### Maven:
 
-``` 
+```xml
 <dependency>
   <groupId>io.github.sudharsan-selvaraj</groupId>
   <artifactId>spydriver</artifactId>
-  <version>1.0.1</version>
+  <version>1.1.0</version>
 </dependency> 
 ```
 
 ### Gradle:
 
-``` 
-implementation group: 'io.github.sudharsan-selvaraj', name: 'spydriver', version: '1.0.1'
+```groovy
+implementation group: 'io.github.sudharsan-selvaraj', name: 'spydriver', version: '1.1.0'
 ```
