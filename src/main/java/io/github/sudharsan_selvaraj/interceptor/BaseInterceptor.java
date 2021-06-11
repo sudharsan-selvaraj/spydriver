@@ -168,27 +168,29 @@ public class BaseInterceptor implements Answer {
         return new Object[]{castedArray};
     }
 
-    private DriverCommand constructDriverCommand(String commandId, Method method, Object[] args) {
-        return new DriverCommand(commandId, driver, target, method, args);
+    private DriverCommand<WebDriver> constructDriverCommand(String commandId,
+                                                            Method method,
+                                                            Object[] args) {
+        return new DriverCommand<>(commandId, driver, target, method, args);
     }
 
-    private ElementCommand constructElementCommand(String commandId, Method method, Object[] args) {
-        return new ElementCommand(commandId, driver, (WebElement) target, locator, method, args);
+    private ElementCommand<WebDriver, WebElement> constructElementCommand(String commandId, Method method, Object[] args) {
+        return new ElementCommand<>(commandId, driver, (WebElement) target, locator, method, args);
     }
 
-    private DriverCommandResult constructDriverCommandResult(String commandId, Method method, Object[] args, Object result) {
-        return new DriverCommandResult(commandId, driver, target, method, args, result);
+    private DriverCommandResult<WebDriver> constructDriverCommandResult(String commandId, Method method, Object[] args, Object result) {
+        return new DriverCommandResult<>(commandId, driver, target, method, args, result);
     }
 
-    private ElementCommandResult constructElementCommandResult(String commandId, Method method, Object[] args, Object result) {
-        return new ElementCommandResult(commandId, driver, (WebElement) target, locator, method, args, result);
+    private ElementCommandResult<WebDriver, WebElement> constructElementCommandResult(String commandId, Method method, Object[] args, Object result) {
+        return new ElementCommandResult<>(commandId, driver, (WebElement) target, locator, method, args, result);
     }
 
-    private DriverCommandException constructDriverCommandException(String commandId, Method method, Object[] args, Throwable exception) {
-        return new DriverCommandException(commandId, driver, target, method, args, exception);
+    private DriverCommandException<WebDriver> constructDriverCommandException(String commandId, Method method, Object[] args, Throwable exception) {
+        return new DriverCommandException<>(commandId, driver, target, method, args, exception);
     }
 
-    private ElementCommandException constructElementCommandException(String commandId, Method method, Object[] args, Throwable exception) {
-        return new ElementCommandException(commandId, driver, (WebElement) target, locator, method, args, exception);
+    private ElementCommandException<WebDriver, WebElement> constructElementCommandException(String commandId, Method method, Object[] args, Throwable exception) {
+        return new ElementCommandException<>(commandId, driver, (WebElement) target, locator, method, args, exception);
     }
 }

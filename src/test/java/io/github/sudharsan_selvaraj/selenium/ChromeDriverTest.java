@@ -1,9 +1,8 @@
 package io.github.sudharsan_selvaraj.selenium;
 
 import io.github.sudharsan_selvaraj.BaseWebDriverTest;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
+import io.github.sudharsan_selvaraj.MockDriverListener;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterMethod;
@@ -33,6 +32,22 @@ public class ChromeDriverTest extends BaseWebDriverTest {
         assertTrue(driver instanceof RemoteWebDriver);
         assertTrue(driver instanceof JavascriptExecutor);
         assertTrue(driver instanceof TakesScreenshot);
+    }
+
+
+    @Test(description = "Test findElementByName method")
+    public void findElementByNameTest() {
+        ChromeDriver driver = (ChromeDriver) localDriver.get();
+        MockDriverListener mockListener = (MockDriverListener) listener.get();
+
+        driver.get("https://www.google.com");
+        WebElement input = driver.findElementByName("q");
+        assertTrue(input.getClass().getSimpleName().contains("RemoteWebElement$MockitoMock"), "Actual class:" + input.getClass().getSimpleName());
+        assertEquals(mockListener.getLastInvocation(mockListener.driverCommandStack).getMethod().getName(), "findElementByName");
+
+        input.sendKeys("TestNinja");
+        assertEquals(mockListener.getLastInvocation(mockListener.elementCommandResults).getLocator(), By.name("q"));
+        assertEquals(mockListener.getLastInvocation(mockListener.driverCommandResultStack).getResult(), input);
     }
 
 }

@@ -7,9 +7,14 @@ import org.openqa.selenium.WebDriver;
 
 
 public interface DriverCommandListener<T extends WebDriver> {
-    void beforeDriverCommandExecuted(DriverCommand<T> command);
 
-    void afterDriverCommandExecuted(DriverCommandResult<T> command);
+    default void beforeDriverCommandExecuted(DriverCommand<T> command) {
+    }
 
-    void onException(DriverCommandException<T> command);
+    default void afterDriverCommandExecuted(DriverCommandResult<T> command) {
+    }
+
+    default void onException(DriverCommandException<T> command) {
+    }
+
 }
