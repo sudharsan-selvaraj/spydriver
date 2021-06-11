@@ -39,11 +39,40 @@ public class MethodInvocationHandler {
 
     public Object processFindElement(Method method, Object[] args, Object result) throws Throwable {
         if (method.getName().startsWith("findElements")) {
-            return createProxiedElement((List<WebElement>) result, (By) args[0]);
+            return createProxiedElement((List<WebElement>) result, getLocatorFromFindBy(method, args[0]));
         } else if (method.getName().startsWith("findElement")) {
-            return createProxiedElement((WebElement) result, (By) args[0]);
+            return createProxiedElement((WebElement) result, getLocatorFromFindBy(method, args[0]));
         }
         return result;
+    }
+
+    private static By getLocatorFromFindBy(Method method, Object locator) {
+        if (locator instanceof By) {
+            return (By) locator;
+        } else {
+            String locatorType = method.getName().split("By")[1].toLowerCase();
+            String locatorText = (String) locator;
+            switch (locatorType) {
+                case "id":
+                    return By.id(locatorText);
+                case "linktext":
+                    return By.linkText(locatorText);
+                case "partiallinktext":
+                    return By.partialLinkText(locatorText);
+                case "tagname":
+                    return By.tagName(locatorText);
+                case "name":
+                    return By.name(locatorText);
+                case "classname":
+                    return By.className(locatorText);
+                case "cssselector":
+                    return By.cssSelector(locatorText);
+                case "xpath":
+                    return By.xpath(locatorText);
+                default:
+                    return null;
+            }
+        }
     }
 
 }
