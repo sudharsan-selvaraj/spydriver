@@ -259,12 +259,12 @@ public void onException(ElementCommandException command) {
 <dependency>
   <groupId>io.github.sudharsan-selvaraj</groupId>
   <artifactId>spydriver</artifactId>
-  <version>1.1.0</version>
+  <version>1.1.1</version>
 </dependency> 
 ```
 
 ### Gradle:
 
 ```groovy
-implementation group: 'io.github.sudharsan-selvaraj', name: 'spydriver', version: '1.1.0'
+implementation group: 'io.github.sudharsan-selvaraj', name: 'spydriver', version: '1.1.1'
 ```
